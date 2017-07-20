@@ -3,7 +3,7 @@ galaxy_info:
   author: Andy Kirkham
   description: Deploys kubectl, kubelet and kubeadm
   license: BSD
-  min_ansible_version: 2.1
+  min_ansible_version: 2.3
   platforms:
   - name: Ubuntu 
     versions:
