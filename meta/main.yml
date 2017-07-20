@@ -2,11 +2,12 @@
 galaxy_info:
   author: Andy Kirkham
   description: Deploys kubectl, kubelet and kubeadm
+  license: BSD
   min_ansible_version: 2.1
   platforms:
   - name: Ubuntu 
     versions:
-    - 16.04 
+    - xenial 
   galaxy_tags:
   - web
 dependencies: []
