@@ -1,13 +1,17 @@
 ---
 galaxy_info:
   author: Andy Kirkham
-  description: Deploys kubectl, kubelet and kubeadm
+  description: "Installs K8S server binarys; https://kubernetes.io/docs/getting-started-guides/scratch/#downloading-and-extracting-kubernetes-binaries"
   license: BSD
   min_ansible_version: 2.3
   platforms:
   - name: Ubuntu 
     versions:
     - xenial 
+  - name: CentOS
+    versions:
+    - 7
   galaxy_tags:
   - web
 dependencies: []
+
