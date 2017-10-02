@@ -34,12 +34,14 @@
   register: bins_to_copy
 
 - name: Stat target files to test if exists
+  no_log: True
   stat:
     path: "/usr/local/bin/{{item.path | basename}}"
   with_items: "{{bins_to_copy.files}}"
   register: file_to_target
 
 - name: Copy K8s binaries if not exists
+  no_log: True
   copy:
     src: "{{item.path}}"
     dest: "/usr/local/bin/{{item.path | basename}}"
