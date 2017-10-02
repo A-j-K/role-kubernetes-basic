@@ -33,7 +33,13 @@
     paths: /var/tmp/kubernetes/server/kubernetes/server/bin
   register: bins_to_copy
 
-- name: Copy K8s binaries
+- name: Stat target files to test if exists
+  stat:
+    path: "/usr/local/bin/{{item.path | basename}}"
+  with_items: "{{bins_to_copy.files}}"
+  register: file_to_target
+
+- name: Copy K8s binaries if not exists
   copy:
     src: "{{item.path}}"
     dest: "/usr/local/bin/{{item.path | basename}}"
@@ -42,5 +48,6 @@
     mode: 755
     force: no
     remote_src: yes
-  with_items: "{{bins_to_copy.files}}"
+  when: item.stat.exists == False
+  with_items: "{{file_to_target.results}}"
 
