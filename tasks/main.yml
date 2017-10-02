@@ -1,10 +1,10 @@
 ---
-- stat: path="{{g_tmp_path}}/var/tmp/kubernetes/cluster/get-kube-binaries.sh"
+- stat: path="{{g_tmp_path}}/kubernetes/cluster/get-kube-binaries.sh"
   register: k8s_installer_script_exists
 - name: Download and extract K8s installer
   unarchive:
     src: "{{g_k8s_rel_src}}/{{g_k8s_ver}}/{{g_k8s_tarball}}"
-    dest: "/var/tmp/"
+    dest: "{{g_tmp_path}}"
     remote_src: yes
     mode: 0775
   when: k8s_installer_script_exists.stat.exists == False
@@ -14,23 +14,23 @@
 - name: Run get-kube-binaries.sh
   shell: "KUBERNETES_SKIP_CONFIRM=yes ./get-kube-binaries.sh"
   args:
-    chdir: /var/tmp/kubernetes/cluster/
+    chdir: "{{g_tmp_path}}/kubernetes/cluster/"
   when: k8s_installer_script_test.stat.executable == True
 
-- stat: path=/var/tmp/kubernetes/server/kubernetes-server-linux-amd64.tar.gz
+- stat: path="{{g_tmp_path}}/kubernetes/server/kubernetes-server-linux-amd64.tar.gz"
   register: k8s_bin_tarball
-- stat: path=/var/tmp/kubernetes/server/kubernetes/server/bin
+- stat: path="{{g_tmp_path}}/kubernetes/server/kubernetes/server/bin"
   register: k8s_bin_exists
 - name: Unpack K8s binary tarball
   unarchive:
-    src: /var/tmp/kubernetes/server/kubernetes-server-linux-amd64.tar.gz
-    dest: /var/tmp/kubernetes/server
+    src: "{{g_tmp_path}}/kubernetes/server/kubernetes-server-linux-amd64.tar.gz"
+    dest: "{{g_tmp_path}}/kubernetes/server"
     remote_src: yes
   when: (k8s_bin_tarball.stat.exists == True) and (k8s_bin_exists.stat.exists == False)
 
 - name: Find files to copy
   find:
-    paths: /var/tmp/kubernetes/server/kubernetes/server/bin
+    paths: "{{g_tmp_path}}/kubernetes/server/kubernetes/server/bin"
   register: bins_to_copy
 
 - name: Stat target files to test if exists
