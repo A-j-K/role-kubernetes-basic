@@ -2,7 +2,7 @@
 
 g_tmp_path: "/var/tmp"
 
-g_k8s_ver: "v1.7.6"
+g_k8s_ver: "v1.8.2"
 g_k8s_rel_src: "https://github.com/kubernetes/kubernetes/releases/download"
 g_k8s_tarball: "kubernetes.tar.gz"
 g_k8s_install_dir: "/usr/local/bin"
